@@ -8,8 +8,8 @@ module Awesome
     DEFAULT_METHOD      = :get
     DEFAULT_USER_AGENT  = "Awesome API Ruby Gem #{Awesome::VERSION}".freeze
 
-    DEFAULT_API_KEY      = nil
-    DEFAULT_FORMAT       = :json
+    DEFAULT_API_KEY     = nil
+    DEFAULT_FORMAT      = :json
 
     # Build accessor methods for every config options so we can do this, for example:
     #   Awesome.format = :xml
@@ -31,6 +31,11 @@ module Awesome
 
     def configure
       yield self
+    end
+
+    # Return the configuration values set in this module
+    def options
+      Hash[ * VALID_CONFIG_KEYS.map { |key| [key, send(key)] }.flatten ]
     end
 
   end # Configuration
